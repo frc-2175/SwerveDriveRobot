@@ -70,4 +70,20 @@ public class PowertrainSubsystem extends BaseSubsystem {
         this.drivebaseLength = powertrainConfig.getDrivebaseLength();
     }
 
+    public WheelAnglePIDController getLeftFrontAngleController() {
+        return leftFrontAngleController;
+    }
+
+    public WheelAnglePIDController getRightFrontAngleController() {
+        return rightFrontAngleController;
+    }
+
+    public WheelAnglePIDController getLeftBackAngleController() {
+        return leftBackAngleController;
+    }
+
+    public WheelAnglePIDController getRightBackAngleController() {
+        return rightBackAngleController;
+    }
+
 }
