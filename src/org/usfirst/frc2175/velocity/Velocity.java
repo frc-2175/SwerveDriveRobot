@@ -40,7 +40,7 @@ public class Velocity {
         this.direction = direction;
     }
 
-    public static final class ZeroVelocity extends Velocity {
+    public static final class ZeroVelocity {
         public final Velocity getZeroVelocity = new Velocity(0, 0);
     }
 
