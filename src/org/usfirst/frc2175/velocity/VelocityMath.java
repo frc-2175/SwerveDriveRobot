@@ -7,12 +7,12 @@ package org.usfirst.frc2175.velocity;
  */
 public class VelocityMath {
 
-    public double dotProduct(Velocity v1, Velocity v2) {
+    public static double dotProduct(Velocity v1, Velocity v2) {
         return v1.getMagnitude() * v2.getMagnitude()
                 * Math.cos(v1.getDirection() - v2.getDirection());
     }
 
-    public Velocity add(Velocity v1, Velocity v2) {
+    public static Velocity add(Velocity v1, Velocity v2) {
         Velocity v1_plus_v2 = new Velocity();
         double v1_x = v1.getMagnitude() * Math.cos(v1.getDirection());
         double v1_y = v1.getMagnitude() * Math.sin(v1.getDirection());
@@ -45,7 +45,7 @@ public class VelocityMath {
         return v1_plus_v2;
     }
 
-    public Velocity scalarMult(Velocity v, double a) {
+    public static Velocity scalarMult(Velocity v, double a) {
         Velocity v_new;
         if (a < 0) {
             v_new = new Velocity(Math.abs(a) * v.getMagnitude(),
