@@ -5,6 +5,7 @@ import org.usfirst.frc2175.config.RobotConfig;
 import org.usfirst.frc2175.config.WiringConfig;
 import org.usfirst.frc2175.controllers.WheelAnglePIDController;
 import org.usfirst.frc2175.subsystems.BaseSubsystem;
+import org.usfirst.frc2175.velocity.Velocity;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
@@ -78,7 +79,17 @@ public class PowertrainSubsystem extends BaseSubsystem {
                 rightBackAngleController);
     }
 
-    public SwerveDrive getSwerveDrive() {
-        return swerveDrive;
+    public void enableDrive() {
+        swerveDrive.enable();
     }
+
+    private void setDriveMode(DriveMode mode) {
+        swerveDrive.setDriveMode(mode);
+    }
+
+    public void driveWithInputs(Velocity translationVelocity,
+            double angularVelocity) {
+        swerveDrive.updateDriveSetpoints(translationVelocity, angularVelocity);
+    }
+
 }

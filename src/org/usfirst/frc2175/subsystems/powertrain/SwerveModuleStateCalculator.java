@@ -1,6 +1,5 @@
 package org.usfirst.frc2175.subsystems.powertrain;
 
-import org.usfirst.frc2175.operatorinteraction.DriveMode;
 import org.usfirst.frc2175.velocity.Velocity;
 
 public class SwerveModuleStateCalculator {

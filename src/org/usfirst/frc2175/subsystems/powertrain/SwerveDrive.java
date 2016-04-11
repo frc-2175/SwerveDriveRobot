@@ -4,7 +4,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.usfirst.frc2175.controllers.WheelAnglePIDController;
-import org.usfirst.frc2175.operatorinteraction.DriveMode;
 import org.usfirst.frc2175.velocity.Velocity;
 
 public class SwerveDrive {
@@ -77,7 +76,7 @@ public class SwerveDrive {
         log.log(Level.FINE, "Setting drive mode to " + mode);
     }
 
-    public void enableSpeedControllers() {
+    public void enable() {
         leftFrontController.enable();
         rightFrontController.enable();
         leftBackController.enable();
