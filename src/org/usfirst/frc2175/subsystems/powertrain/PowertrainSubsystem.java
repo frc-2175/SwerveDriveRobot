@@ -38,6 +38,9 @@ public class PowertrainSubsystem extends BaseSubsystem {
     private double drivebaseWidth;
     private double drivebaseLength;
 
+    // Drive system
+    private SwerveDrive swerveDrive;
+
     public PowertrainSubsystem(RobotConfig robotConfig) {
         WiringConfig wiringConfig = robotConfig.getWiringConfig();
         PowertrainConfig powertrainConfig = robotConfig.getPowertrainConfig();
@@ -68,22 +71,13 @@ public class PowertrainSubsystem extends BaseSubsystem {
 
         this.drivebaseWidth = powertrainConfig.getDrivebaseWidth();
         this.drivebaseLength = powertrainConfig.getDrivebaseLength();
+
+        swerveDrive = new SwerveDrive(leftFrontAngleController,
+                rightFrontAngleController, leftBackAngleController,
+                rightBackAngleController);
     }
 
-    public WheelAnglePIDController getLeftFrontAngleController() {
-        return leftFrontAngleController;
+    public SwerveDrive getSwerveDrive() {
+        return swerveDrive;
     }
-
-    public WheelAnglePIDController getRightFrontAngleController() {
-        return rightFrontAngleController;
-    }
-
-    public WheelAnglePIDController getLeftBackAngleController() {
-        return leftBackAngleController;
-    }
-
-    public WheelAnglePIDController getRightBackAngleController() {
-        return rightBackAngleController;
-    }
-
 }
