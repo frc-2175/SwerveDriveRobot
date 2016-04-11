@@ -1,4 +1,4 @@
-package org.usfirst.frc2175.subsystems.powertrain;
+package org.usfirst.frc2175.velocity;
 
 /**
  * A Velocity serves as a framework for vector math. The key features for a
@@ -16,8 +16,27 @@ public class Velocity {
     double magnitude;
     double direction;
 
+    public Velocity() {
+    }
+
     public Velocity(double magnitude, double direction) {
         this.magnitude = magnitude;
+        this.direction = direction;
+    }
+
+    public double getMagnitude() {
+        return magnitude;
+    }
+
+    public void setMagnitude(double magnitude) {
+        this.magnitude = magnitude;
+    }
+
+    public double getDirection() {
+        return direction;
+    }
+
+    public void setDirection(double direction) {
         this.direction = direction;
     }
 
