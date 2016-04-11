@@ -20,9 +20,11 @@ public class VelocityMath {
         double v2_x = v2.getMagnitude() * Math.cos(v2.getDirection());
         double v2_y = v2.getMagnitude() * Math.sin(v2.getDirection());
 
+        // Add componentwise
         double new_x_component = v1_x + v2_x;
         double new_y_component = v1_y + v2_y;
 
+        // Use arctangent to calculate the new angle
         double new_direction = 0;
         double atan = Math.abs(Math.atan(new_y_component / new_x_component));
         // Handle quadrants
