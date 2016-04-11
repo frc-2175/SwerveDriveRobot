@@ -5,6 +5,7 @@ public class RobotConfig {
 
     private final WiringConfig wiringConfig = new WiringConfig();
     private final ControlLoopConfig controlLoopConfig = new ControlLoopConfig();
+    private final PowertrainConfig powertrainConfig = new PowertrainConfig();
 
     public LoggingConfig getLoggingConfig() {
         return loggingConfig;
@@ -16,6 +17,10 @@ public class RobotConfig {
 
     public ControlLoopConfig getControlLoopConfig() {
         return controlLoopConfig;
+    }
+
+    public PowertrainConfig getPowertrainConfig() {
+        return powertrainConfig;
     }
 
 }

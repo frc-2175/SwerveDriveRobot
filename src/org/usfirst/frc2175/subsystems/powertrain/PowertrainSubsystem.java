@@ -1,5 +1,6 @@
 package org.usfirst.frc2175.subsystems.powertrain;
 
+import org.usfirst.frc2175.config.PowertrainConfig;
 import org.usfirst.frc2175.config.RobotConfig;
 import org.usfirst.frc2175.config.WiringConfig;
 import org.usfirst.frc2175.controllers.WheelAnglePIDController;
@@ -33,8 +34,13 @@ public class PowertrainSubsystem extends BaseSubsystem {
     private Encoder encoderBackRight;
     private WheelAnglePIDController rightBackAngleController;
 
+    // Geometry
+    private double drivebaseWidth;
+    private double drivebaseLength;
+
     public PowertrainSubsystem(RobotConfig robotConfig) {
         WiringConfig wiringConfig = robotConfig.getWiringConfig();
+        PowertrainConfig powertrainConfig = robotConfig.getPowertrainConfig();
 
         this.driveFrontLeft = wiringConfig.getDriveFrontLeft();
         this.vectorFrontLeft = wiringConfig.getVectorFrontLeft();
@@ -59,6 +65,9 @@ public class PowertrainSubsystem extends BaseSubsystem {
         this.encoderBackRight = wiringConfig.getEncoderBackRight();
         this.rightBackAngleController = new WheelAnglePIDController(
                 driveBackRight, encoderBackRight, robotConfig);
+
+        this.drivebaseWidth = powertrainConfig.getDrivebaseWidth();
+        this.drivebaseLength = powertrainConfig.getDrivebaseLength();
     }
 
 }
