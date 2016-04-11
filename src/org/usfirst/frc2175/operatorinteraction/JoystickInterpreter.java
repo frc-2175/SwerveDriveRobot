@@ -53,6 +53,11 @@ public class JoystickInterpreter {
         return Math.sqrt((x * x) + (y * y));
     }
 
+    public double getAngularVelocity() {
+        // TODO fill in
+        return 0;
+    }
+
     private double getRotationJoystickAngle() {
         double angle = 0;
         double x = rotationJoystick.getX();
