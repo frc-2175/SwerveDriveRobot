@@ -49,7 +49,7 @@ public class VelocityMath {
         Velocity v_new;
         if (a < 0) {
             v_new = new Velocity(Math.abs(a) * v.getMagnitude(),
-                    v.getDirection() + 2 * Math.PI);
+                    v.getDirection() + Math.PI);
         } else {
             v_new = new Velocity(a * v.getMagnitude(), v.getDirection());
         }
