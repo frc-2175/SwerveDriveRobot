@@ -77,4 +77,13 @@ public class SwerveDrive {
         log.log(Level.FINE, "Setting drive mode to " + mode);
     }
 
+    public void enableSpeedControllers() {
+        leftFrontController.enable();
+        rightFrontController.enable();
+        leftBackController.enable();
+        rightBackController.enable();
+        log.log(Level.INFO, "Enabling drive controllers");
+
+    }
+
 }
