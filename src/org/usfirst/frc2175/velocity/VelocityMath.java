@@ -46,7 +46,13 @@ public class VelocityMath {
     }
 
     public Velocity scalarMult(Velocity v, double a) {
-        Velocity v_new = new Velocity(a * v.getMagnitude(), v.getDirection());
+        Velocity v_new;
+        if (a < 0) {
+            v_new = new Velocity(Math.abs(a) * v.getMagnitude(),
+                    v.getDirection() + 2 * Math.PI);
+        } else {
+            v_new = new Velocity(a * v.getMagnitude(), v.getDirection());
+        }
         return v_new;
     }
 
