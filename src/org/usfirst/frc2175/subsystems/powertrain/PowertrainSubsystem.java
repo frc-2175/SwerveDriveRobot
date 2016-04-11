@@ -3,7 +3,7 @@ package org.usfirst.frc2175.subsystems.powertrain;
 import org.usfirst.frc2175.config.PowertrainConfig;
 import org.usfirst.frc2175.config.RobotConfig;
 import org.usfirst.frc2175.config.WiringConfig;
-import org.usfirst.frc2175.controllers.WheelAnglePIDController;
+import org.usfirst.frc2175.pid.WheelAnglePIDController;
 import org.usfirst.frc2175.subsystems.BaseSubsystem;
 import org.usfirst.frc2175.velocity.Velocity;
 

@@ -1,4 +1,4 @@
-package org.usfirst.frc2175.controllers;
+package org.usfirst.frc2175.pid;
 
 import java.util.logging.Logger;
 

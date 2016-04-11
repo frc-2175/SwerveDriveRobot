@@ -3,7 +3,7 @@ package org.usfirst.frc2175.subsystems.powertrain;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.usfirst.frc2175.controllers.WheelAnglePIDController;
+import org.usfirst.frc2175.pid.WheelAnglePIDController;
 import org.usfirst.frc2175.velocity.Velocity;
 
 public class SwerveDrive {

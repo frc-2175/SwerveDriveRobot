@@ -1,4 +1,4 @@
-package org.usfirst.frc2175.controllers;
+package org.usfirst.frc2175.pid;
 
 public class WheelSpeedPIDController extends PIDControllerComplete {
 
