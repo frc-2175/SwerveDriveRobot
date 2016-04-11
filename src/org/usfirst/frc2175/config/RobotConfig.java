@@ -4,6 +4,7 @@ public class RobotConfig {
     private final LoggingConfig loggingConfig = new LoggingConfig();
 
     private final WiringConfig wiringConfig = new WiringConfig();
+    private final JoysticksConfig joysticksConfig = new JoysticksConfig();
     private final ControlLoopConfig controlLoopConfig = new ControlLoopConfig();
     private final PowertrainConfig powertrainConfig = new PowertrainConfig();
 
@@ -13,6 +14,10 @@ public class RobotConfig {
 
     public WiringConfig getWiringConfig() {
         return wiringConfig;
+    }
+
+    public JoysticksConfig getJoysticksConfig() {
+        return joysticksConfig;
     }
 
     public ControlLoopConfig getControlLoopConfig() {
