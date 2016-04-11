@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 
 public class PowertrainSubsystem extends BaseSubsystem {
+    // TODO add speed PID controllers
     // Left front module
     private CANTalon driveFrontLeft;
     private CANTalon vectorFrontLeft;
@@ -49,25 +50,25 @@ public class PowertrainSubsystem extends BaseSubsystem {
         this.vectorFrontLeft = wiringConfig.getVectorFrontLeft();
         this.encoderFrontLeft = wiringConfig.getEncoderFrontLeft();
         this.leftFrontAngleController = new WheelAnglePIDController(
-                driveFrontLeft, encoderFrontLeft, robotConfig);
+                vectorFrontLeft, encoderFrontLeft, robotConfig);
 
         this.driveFrontRight = wiringConfig.getDriveFrontRight();
         this.vectorFrontRight = wiringConfig.getVectorFrontRight();
         this.encoderFrontRight = wiringConfig.getEncoderFrontRight();
         this.rightFrontAngleController = new WheelAnglePIDController(
-                driveFrontRight, encoderFrontRight, robotConfig);
+                vectorFrontRight, encoderFrontRight, robotConfig);
 
         this.driveBackLeft = wiringConfig.getDriveBackLeft();
         this.vectorBackLeft = wiringConfig.getVectorBackLeft();
         this.encoderBackLeft = wiringConfig.getEncoderBackLeft();
         this.leftBackAngleController = new WheelAnglePIDController(
-                driveBackLeft, encoderBackLeft, robotConfig);
+                vectorBackLeft, encoderBackLeft, robotConfig);
 
         this.driveBackRight = wiringConfig.getDriveBackRight();
         this.vectorBackRight = wiringConfig.getVectorBackRight();
         this.encoderBackRight = wiringConfig.getEncoderBackRight();
         this.rightBackAngleController = new WheelAnglePIDController(
-                driveBackRight, encoderBackRight, robotConfig);
+                vectorBackRight, encoderBackRight, robotConfig);
 
         this.drivebaseWidth = powertrainConfig.getDrivebaseWidth();
         this.drivebaseLength = powertrainConfig.getDrivebaseLength();
