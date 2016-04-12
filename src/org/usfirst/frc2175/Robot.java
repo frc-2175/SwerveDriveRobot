@@ -1,8 +1,10 @@
 
-package org.usfirst.frc2175.robot;
+package org.usfirst.frc2175;
 
 import org.usfirst.frc2175.config.RobotConfig;
+import org.usfirst.frc2175.operatorinteraction.OperatorInteraction;
 import org.usfirst.frc2175.subsystems.RobotSubsystems;
+import org.usfirst.frc2175.util.Looper;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -15,8 +17,13 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class Robot extends IterativeRobot {
 
-    RobotConfig robotConfig = new RobotConfig();
-    RobotSubsystems RobotSubsystems = new RobotSubsystems(robotConfig);
+    private final RobotConfig robotConfig = new RobotConfig();
+
+    private final RobotSubsystems RobotSubsystems =
+            new RobotSubsystems(robotConfig);
+    private final OperatorInteraction oi = new OperatorInteraction(robotConfig);
+
+    private final Looper oiLooper = new Looper(oi, 5 / 100);
 
     /**
      * This function is run when the robot is first started up and should be
@@ -24,6 +31,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
+        oiLooper.enable();
     }
 
     /**

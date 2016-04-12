@@ -14,17 +14,17 @@ public class JoystickInterpreter {
         this.rotationJoystick = rotationJoystick;
     }
 
-    public Velocity getTranslationVelocity() {
+    public Velocity getCommandedTranslationVelocity() {
         Velocity translationVelocity = new Velocity(
                 getTranslationJoystickMagnitude(), getRotationJoystickAngle());
         return translationVelocity;
     }
 
-    private double getXTranslation() {
+    private double getCommandedXTranslation() {
         return translationJoystick.getX();
     }
 
-    private double getYTranslation() {
+    private double getCommandedYTranslation() {
         return translationJoystick.getY();
     }
 
@@ -53,7 +53,7 @@ public class JoystickInterpreter {
         return Math.sqrt((x * x) + (y * y));
     }
 
-    public double getAngularVelocity() {
+    public double getCommandedAngularVelocity() {
         // TODO fill in
         return 0;
     }
