@@ -1,14 +1,16 @@
 package org.usfirst.frc2175.pid;
 
 import org.usfirst.frc2175.config.RobotConfig;
+import org.usfirst.frc2175.util.Loopable;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 
-public class WheelAnglePIDController extends PIDControllerComplete {
+public class WheelAnglePIDController extends PIDController implements Loopable {
 
     private CANTalon angleTalon;
     private Encoder angleEncoder;
+    private double tolerance;
 
     public WheelAnglePIDController(CANTalon angleTalon, Encoder angleEncoder,
             RobotConfig robotConfig) {
@@ -21,20 +23,17 @@ public class WheelAnglePIDController extends PIDControllerComplete {
         double max = robotConfig.getControlLoopConfig().getAnglePID_range();
         setOutputRange(min, max);
 
-        double tolerance =
+        this.tolerance =
                 robotConfig.getControlLoopConfig().getAnglePID_tolerance();
-        setAbsoluteTolerance(tolerance);
+    }
+
+    public boolean isOnTarget() {
+        return onTarget(tolerance);
     }
 
     @Override
-    public double pidGet() {
-        // TODO Figure out the way to calculate the current angle-will depend on
-        // the physical robot
-        return 0;
-    }
-
-    @Override
-    public void pidWrite(double output) {
+    public void update() {
+        angleTalon.set(calculate(angleEncoder.getDistance()));
     }
 
 }
