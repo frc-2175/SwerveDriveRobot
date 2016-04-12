@@ -39,7 +39,8 @@ public class SystemController {
         // Set to 50 Hz
         oiLooper = new Looper(oi, 1 / 50);
 
-        // This should run at the same speed as the OI looper
+        // The should run at the same speed as the OI looper. It should only run
+        // commands that set "spoofed" inputs for the OI instance.
         commandLooper = new CommandLooper(1 / 50);
 
         // This one we want as fast as possible.
@@ -51,11 +52,13 @@ public class SystemController {
     public void enable() {
         oiLooper.enable();
         subsystemLooper.enable();
+        commandLooper.enable();
     }
 
     public void disable() {
         oiLooper.disable();
         subsystemLooper.disable();
+        commandLooper.disable();
     }
 
     public MultiLooper getSubsystemLooper() {
