@@ -19,18 +19,24 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OperatorInteraction implements Loopable {
     private final Logger log = Logger.getLogger(getClass().getName());
 
+    private boolean isSpoofingInputs = false;
+
     // Put physical inputs here
     private Joystick translateStick;
     private Joystick rotateStick;
 
-    // Inputs we want to monitor. These get updated as the class is run in a
-    // Looper and have getters to obtain their value for use somewhere else.
+    // Takes values from the joysticks and makes them make sense
+    private JoystickInterpreter joystickInterpreter;
+
+    // Commanded values we want to monitor. These get updated as the class is
+    // run in a Looper and have getters to obtain their value for use somewhere
+    // else.
     private Velocity commandedTranslateVelocity;
     private double commandedAngularVelocity;
 
-    private JoystickInterpreter joystickInterpreter;
-
     public OperatorInteraction(RobotConfig robotConfig) {
+        this.isSpoofingInputs = false;
+
         // Initialize the sticks from joysticksConfig
         this.translateStick =
                 robotConfig.getJoysticksConfig().getTranslateJoystick();
@@ -48,21 +54,31 @@ public class OperatorInteraction implements Loopable {
         updateCommandedAngularVelocity();
     }
 
+    /* ----------- Update methods for each needed value ----------------- */
+
     /**
-     * Updates commanded translate Velocity based on a joystick reading
+     * Updates commanded translate Velocity based on a joystick reading (or
+     * spoofed reading)
      */
     public void updateCommandedTranslateVelocity() {
-        this.commandedTranslateVelocity =
-                joystickInterpreter.getCommandedTranslationVelocity();
+        if (!isSpoofingInputs) {
+            this.commandedTranslateVelocity =
+                    joystickInterpreter.getCommandedTranslationVelocity();
+        }
     }
 
     /**
-     * Updated commanded angular velocity based on a joystick reading
+     * Updated commanded angular velocity based on a joystick reading (or
+     * spoofed reading)
      */
     public void updateCommandedAngularVelocity() {
-        this.commandedAngularVelocity =
-                joystickInterpreter.getCommandedAngularVelocity();
+        if (!isSpoofingInputs) {
+            this.commandedAngularVelocity =
+                    joystickInterpreter.getCommandedAngularVelocity();
+        }
     }
+
+    /* ----------- Getters for commanded values ----------------- */
 
     public Velocity getCommandedTranslateVelocity() {
         return commandedTranslateVelocity;
