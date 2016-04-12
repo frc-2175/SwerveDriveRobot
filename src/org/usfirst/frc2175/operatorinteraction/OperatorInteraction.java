@@ -50,6 +50,10 @@ public class OperatorInteraction implements Loopable {
                 new JoystickInterpreter(translateStick, rotateStick);
     }
 
+    public void setSpoofingInputs(boolean isSpoofingInputs) {
+        this.isSpoofingInputs = isSpoofingInputs;
+    }
+
     @Override
     public void update() {
         // Add in update calls as needed
