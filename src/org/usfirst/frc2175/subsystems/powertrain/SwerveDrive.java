@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.usfirst.frc2175.pid.WheelAnglePIDController;
+import org.usfirst.frc2175.util.MultiLooper;
 import org.usfirst.frc2175.velocity.Velocity;
 
 public class SwerveDrive {
@@ -23,6 +24,8 @@ public class SwerveDrive {
     private WheelAnglePIDController leftBackController;
     private WheelAnglePIDController rightBackController;
 
+    private MultiLooper wheelPIDLooper;
+
     public SwerveDrive(WheelAnglePIDController leftFrontController,
             WheelAnglePIDController rightFrontController,
             WheelAnglePIDController leftBackController,
@@ -31,6 +34,13 @@ public class SwerveDrive {
         this.rightFrontController = rightFrontController;
         this.leftBackController = leftBackController;
         this.rightBackController = rightBackController;
+
+        wheelPIDLooper = new MultiLooper(1 / 100);
+        wheelPIDLooper.addLoopable(leftFrontController);
+        wheelPIDLooper.addLoopable(rightFrontController);
+        wheelPIDLooper.addLoopable(leftBackController);
+        wheelPIDLooper.addLoopable(rightBackController);
+
         log.log(Level.INFO, "Initialized new SwerveDrive instance");
     }
 
@@ -77,12 +87,13 @@ public class SwerveDrive {
     }
 
     public void enable() {
-        leftFrontController.enable();
-        rightFrontController.enable();
-        leftBackController.enable();
-        rightBackController.enable();
+        wheelPIDLooper.enable();
         log.log(Level.INFO, "Enabling drive controllers");
+    }
 
+    public void disable() {
+        wheelPIDLooper.disable();
+        log.log(Level.INFO, "Disabling drive controllers");
     }
 
 }
