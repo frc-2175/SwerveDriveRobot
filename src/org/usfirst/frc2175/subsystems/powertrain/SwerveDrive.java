@@ -35,7 +35,9 @@ public class SwerveDrive {
         this.leftBackController = leftBackController;
         this.rightBackController = rightBackController;
 
-        wheelPIDLooper = new MultiLooper(1 / 100);
+        // This is currently magic, may want to change later. It should be the
+        // smallest that the RoboRIO can keep consistent loop times.
+        wheelPIDLooper = new MultiLooper(1 / 200);
         wheelPIDLooper.addLoopable(leftFrontController);
         wheelPIDLooper.addLoopable(rightFrontController);
         wheelPIDLooper.addLoopable(leftBackController);
