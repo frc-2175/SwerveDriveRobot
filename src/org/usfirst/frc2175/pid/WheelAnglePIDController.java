@@ -1,7 +1,7 @@
 package org.usfirst.frc2175.pid;
 
 import org.usfirst.frc2175.config.RobotConfig;
-import org.usfirst.frc2175.util.Loopable;
+import org.usfirst.frc2175.loopers.Loopable;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;

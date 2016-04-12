@@ -1,6 +1,6 @@
 package org.usfirst.frc2175.subsystems;
 
-import org.usfirst.frc2175.util.Loopable;
+import org.usfirst.frc2175.loopers.Loopable;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;

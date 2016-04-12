@@ -1,10 +1,10 @@
-package org.usfirst.frc2175.util;
+package org.usfirst.frc2175.loopers;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class MultiLooper implements Loopable {
     private Looper looper;
-    private Vector<Loopable> loopables = new Vector<Loopable>();
+    private ArrayList<Loopable> loopables = new ArrayList<Loopable>();
 
     public MultiLooper(long period) {
         looper = new Looper(this, period);
@@ -14,7 +14,7 @@ public class MultiLooper implements Loopable {
     public void update() {
         int i;
         for (i = 0; i < loopables.size(); ++i) {
-            Loopable loopable = loopables.elementAt(i);
+            Loopable loopable = loopables.get(i);
             if (loopable != null) {
                 loopable.update();
             }
@@ -30,11 +30,7 @@ public class MultiLooper implements Loopable {
     }
 
     public void addLoopable(Loopable loopable) {
-        loopables.addElement(loopable);
-    }
-
-    public void addLoopables(Vector<Loopable> loopablesVector) {
-        loopables.addAll(loopablesVector);
+        loopables.add(loopable);
     }
 
 }

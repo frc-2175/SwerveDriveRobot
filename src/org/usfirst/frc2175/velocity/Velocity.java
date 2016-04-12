@@ -41,7 +41,7 @@ public class Velocity {
     }
 
     public static final class ZeroVelocity {
-        public final Velocity getZeroVelocity = new Velocity(0, 0);
+        public final Velocity ZERO_VELOCITY = new Velocity(0, 0);
     }
 
 }

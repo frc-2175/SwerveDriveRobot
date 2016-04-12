@@ -1,12 +1,13 @@
 package org.usfirst.frc2175.systemcontroller;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
+import org.usfirst.frc2175.loopers.CommandLooper;
+import org.usfirst.frc2175.loopers.Looper;
+import org.usfirst.frc2175.loopers.MultiLooper;
 import org.usfirst.frc2175.operatorinteraction.OperatorInteraction;
 import org.usfirst.frc2175.subsystems.CalculatorSubsystem;
 import org.usfirst.frc2175.subsystems.RobotSubsystems;
-import org.usfirst.frc2175.util.Looper;
-import org.usfirst.frc2175.util.MultiLooper;
 
 /**
  * Runs Loopers for robot systems. Handles running the OI, along with a vector
@@ -17,9 +18,10 @@ import org.usfirst.frc2175.util.MultiLooper;
 public class SystemController {
     private OperatorInteraction oi;
 
-    private Vector<CalculatorSubsystem> subsystems;
+    private ArrayList<CalculatorSubsystem> subsystems;
 
     private Looper oiLooper;
+    private CommandLooper commandLooper;
     private MultiLooper subsystemLooper;
 
     public SystemController(OperatorInteraction oi,
@@ -27,13 +29,18 @@ public class SystemController {
         this.oi = oi;
 
         // Add subsystems to subsystemLooper
-        subsystemLooper.addLoopables(robotSubsystems.getSubsystemsVector());
+        for (CalculatorSubsystem e : robotSubsystems.getSubsystemsList()) {
+            subsystemLooper.addLoopable(e);
+        }
     }
 
     public void makeLoopers() {
         // This one should be slow, as it is limited by FMS
         // Set to 50 Hz
         oiLooper = new Looper(oi, 1 / 50);
+
+        // This should run at the same speed as the OI looper
+        commandLooper = new CommandLooper(1 / 50);
 
         // This one we want as fast as possible.
         // Currently set to 200Hz
