@@ -33,4 +33,8 @@ public class MultiLooper implements Loopable {
         loopables.addElement(loopable);
     }
 
+    public void addLoopables(Vector<Loopable> loopablesVector) {
+        loopables.addAll(loopablesVector);
+    }
+
 }

@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OperatorInteraction implements Loopable {
     private final Logger log = Logger.getLogger(getClass().getName());
 
+    // Put physical inputs here
     private Joystick translateStick;
     private Joystick rotateStick;
 
@@ -47,11 +48,17 @@ public class OperatorInteraction implements Loopable {
         updateCommandedAngularVelocity();
     }
 
+    /**
+     * Updates commanded translate Velocity based on a joystick reading
+     */
     public void updateCommandedTranslateVelocity() {
         this.commandedTranslateVelocity =
                 joystickInterpreter.getCommandedTranslationVelocity();
     }
 
+    /**
+     * Updated commanded angular velocity based on a joystick reading
+     */
     public void updateCommandedAngularVelocity() {
         this.commandedAngularVelocity =
                 joystickInterpreter.getCommandedAngularVelocity();

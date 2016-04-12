@@ -4,10 +4,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.usfirst.frc2175.pid.WheelAnglePIDController;
-import org.usfirst.frc2175.util.MultiLooper;
+import org.usfirst.frc2175.util.Loopable;
 import org.usfirst.frc2175.velocity.Velocity;
 
-public class SwerveDrive {
+public class SwerveDrive implements Loopable {
     private final Logger log = Logger.getLogger(getClass().getName());
 
     private final SwerveModuleStateCalculator leftFrontModule =
@@ -24,8 +24,6 @@ public class SwerveDrive {
     private WheelAnglePIDController leftBackController;
     private WheelAnglePIDController rightBackController;
 
-    private MultiLooper wheelPIDLooper;
-
     public SwerveDrive(WheelAnglePIDController leftFrontController,
             WheelAnglePIDController rightFrontController,
             WheelAnglePIDController leftBackController,
@@ -37,13 +35,16 @@ public class SwerveDrive {
 
         // This is currently magic, may want to change later. It should be the
         // smallest that the RoboRIO can keep consistent loop times.
-        wheelPIDLooper = new MultiLooper(1 / 200);
-        wheelPIDLooper.addLoopable(leftFrontController);
-        wheelPIDLooper.addLoopable(rightFrontController);
-        wheelPIDLooper.addLoopable(leftBackController);
-        wheelPIDLooper.addLoopable(rightBackController);
 
         log.log(Level.INFO, "Initialized new SwerveDrive instance");
+    }
+
+    @Override
+    public void update() {
+        leftFrontController.update();
+        rightFrontController.update();
+        leftBackController.update();
+        rightBackController.update();
     }
 
     /**
@@ -86,16 +87,6 @@ public class SwerveDrive {
         leftBackModule.setDriveMode(mode);
         rightBackModule.setDriveMode(mode);
         log.log(Level.FINE, "Setting drive mode to " + mode);
-    }
-
-    public void enable() {
-        wheelPIDLooper.enable();
-        log.log(Level.INFO, "Enabling drive controllers");
-    }
-
-    public void disable() {
-        wheelPIDLooper.disable();
-        log.log(Level.INFO, "Disabling drive controllers");
     }
 
 }

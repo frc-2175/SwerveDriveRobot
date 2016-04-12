@@ -3,14 +3,20 @@ package org.usfirst.frc2175.subsystems.powertrain;
 import org.usfirst.frc2175.config.PowertrainConfig;
 import org.usfirst.frc2175.config.RobotConfig;
 import org.usfirst.frc2175.config.WiringConfig;
+import org.usfirst.frc2175.operatorinteraction.OperatorInteraction;
 import org.usfirst.frc2175.pid.WheelAnglePIDController;
-import org.usfirst.frc2175.subsystems.BaseSubsystem;
+import org.usfirst.frc2175.subsystems.CalculatorSubsystem;
 import org.usfirst.frc2175.velocity.Velocity;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 
-public class PowertrainSubsystem extends BaseSubsystem {
+public class PowertrainSubsystem extends CalculatorSubsystem {
+    // OI
+    private OperatorInteraction oi;
+    private Velocity commandedTranslateVelocity;
+    private double commandedAngularVelocity;
+
     // TODO add speed PID controllers
     // Left front module
     private CANTalon driveFrontLeft;
@@ -43,7 +49,9 @@ public class PowertrainSubsystem extends BaseSubsystem {
     // Drive system
     private SwerveDrive swerveDrive;
 
-    public PowertrainSubsystem(RobotConfig robotConfig) {
+    public PowertrainSubsystem(RobotConfig robotConfig,
+            OperatorInteraction oi) {
+        this.oi = oi;
         WiringConfig wiringConfig = robotConfig.getWiringConfig();
         PowertrainConfig powertrainConfig = robotConfig.getPowertrainConfig();
 
@@ -79,17 +87,43 @@ public class PowertrainSubsystem extends BaseSubsystem {
                 rightBackAngleController);
     }
 
-    public void enableDrive() {
-        swerveDrive.enable();
-    }
-
+    /**
+     * Sets the DriveMode for the swerve controller
+     *
+     * @param mode
+     *            mode to use from DriveMode
+     */
     private void setDriveMode(DriveMode mode) {
         swerveDrive.setDriveMode(mode);
     }
 
-    public void driveWithInputs(Velocity translationVelocity,
+    @Override
+    public void update() {
+        grabCurrentOIData();
+        updateDriveInputs(commandedTranslateVelocity, commandedAngularVelocity);
+        swerveDrive.update();
+    }
+
+    /**
+     * Updates the setpoints of the swerve drive controlller
+     *
+     * @param translationVelocity
+     *            Desired translation Velocity
+     * @param angularVelocity
+     *            desired angular velocity.
+     */
+    public void updateDriveInputs(Velocity translationVelocity,
             double angularVelocity) {
         swerveDrive.updateDriveSetpoints(translationVelocity, angularVelocity);
     }
 
+    /**
+     * Grabs commanded translate Velocity and angular velocity from the OI
+     * instance.
+     */
+    @Override
+    public void grabCurrentOIData() {
+        this.commandedTranslateVelocity = oi.getCommandedTranslateVelocity();
+        this.commandedAngularVelocity = oi.getCommandedAngularVelocity();
+    }
 }

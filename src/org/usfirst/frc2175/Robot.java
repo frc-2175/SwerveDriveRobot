@@ -4,8 +4,7 @@ package org.usfirst.frc2175;
 import org.usfirst.frc2175.config.RobotConfig;
 import org.usfirst.frc2175.operatorinteraction.OperatorInteraction;
 import org.usfirst.frc2175.subsystems.RobotSubsystems;
-import org.usfirst.frc2175.util.Looper;
-import org.usfirst.frc2175.velocity.Velocity;
+import org.usfirst.frc2175.systemcontroller.SystemController;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -20,11 +19,14 @@ public class Robot extends IterativeRobot {
 
     private final RobotConfig robotConfig = new RobotConfig();
 
-    private final RobotSubsystems RobotSubsystems =
-            new RobotSubsystems(robotConfig);
     private final OperatorInteraction oi = new OperatorInteraction(robotConfig);
+    // Construct this after OI
+    private final RobotSubsystems robotSubsystems =
+            new RobotSubsystems(robotConfig, oi);
 
-    private final Looper oiLooper = new Looper(oi, 1 / 50);
+    // Make system controller
+    private final SystemController systemController =
+            new SystemController(oi, robotSubsystems);
 
     /**
      * This function is run when the robot is first started up and should be
@@ -32,7 +34,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void robotInit() {
-        oiLooper.enable();
+        systemController.makeLoopers();
     }
 
     /**
@@ -42,7 +44,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void disabledInit() {
-
+        systemController.disable();
     }
 
     @Override
@@ -62,6 +64,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousInit() {
+        systemController.enable();
     }
 
     /**
@@ -69,10 +72,12 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void autonomousPeriodic() {
+
     }
 
     @Override
     public void teleopInit() {
+        systemController.enable();
     }
 
     /**
@@ -80,10 +85,6 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void teleopPeriodic() {
-        Velocity translationVelocity = oi.getCommandedTranslateVelocity();
-        double angularVelocity = oi.getCommandedAngularVelocity();
-        RobotSubsystems.getPowertrainSubsystem()
-                .driveWithInputs(translationVelocity, angularVelocity);
     }
 
 }
