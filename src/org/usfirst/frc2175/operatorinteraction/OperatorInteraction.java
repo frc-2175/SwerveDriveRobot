@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OperatorInteraction implements Loopable {
     private final Logger log = Logger.getLogger(getClass().getName());
 
-    private boolean isSpoofingInputs = false;
+    private boolean isSpoofingDriveInputs = false;
 
     // Put physical inputs here
     private Joystick translateStick;
@@ -38,7 +38,7 @@ public class OperatorInteraction implements Loopable {
     private double spoofedAngularVelocity = 0;
 
     public OperatorInteraction(RobotConfig robotConfig) {
-        this.isSpoofingInputs = false;
+        this.isSpoofingDriveInputs = false;
 
         // Initialize the sticks from joysticksConfig
         this.translateStick =
@@ -50,8 +50,8 @@ public class OperatorInteraction implements Loopable {
                 new JoystickInterpreter(translateStick, rotateStick);
     }
 
-    public void setSpoofingInputs(boolean isSpoofingInputs) {
-        this.isSpoofingInputs = isSpoofingInputs;
+    public void setSpoofingDriveInputs(boolean isSpoofingDriveInputs) {
+        this.isSpoofingDriveInputs = isSpoofingDriveInputs;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class OperatorInteraction implements Loopable {
      * spoofed reading).
      */
     public void updateCommandedTranslateVelocity() {
-        if (isSpoofingInputs) {
+        if (isSpoofingDriveInputs) {
             this.commandedTranslateVelocity = this.spoofedTranslateVelocity;
         } else {
             this.commandedTranslateVelocity =
@@ -88,7 +88,7 @@ public class OperatorInteraction implements Loopable {
      * spoofed reading)
      */
     public void updateCommandedAngularVelocity() {
-        if (isSpoofingInputs) {
+        if (isSpoofingDriveInputs) {
             this.commandedAngularVelocity = this.spoofedAngularVelocity;
         } else {
             this.commandedAngularVelocity =
